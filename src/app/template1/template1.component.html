@@ -1,0 +1,36 @@
+<div class="row">
+  <!-- <div class="col-md-2 border div-pannel">
+      <ul class="list-group">
+          <li class="list-group-item" draggable="true"><img src="../svg/start.svg" /></li>
+          <li class="list-group-item">End</li>
+          <li class="list-group-item">Activity</li>
+          <li class="list-group-item">Condition</li>
+          <li class="list-group-item">Arrow</li>
+        </ul>
+  </div> -->
+  <div class="col-md-7 border div-pannel graph">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg">
+
+      <g style="stroke:#999696;stroke-width:1;fill:#eaeaea">
+        <svg:g app-startend x="175" y="80" rx="40" ry="20" text="Start"/>
+        <svg:g app-activity [x]="100" [y]="150" [height]="50" [width]="150" name="activity1" stepname="AddTwoNumber"/>
+        <svg:g app-condition points="175 250,125 300,175 350,225 300" x="140" y="290" conditionName="If Sum > 3"  />
+        <svg:g app-activity [x]="275" [y]="275" [height]="50" [width]="150" name="yesActivity" stepname="Print Sum"/>
+        <!-- <svg:g app-activity [x]="100" [y]="400" [height]="50" [width]="150" name="noActivity" stepname="Print End"/> -->
+        <svg:g app-startend x="175" y="520" rx="40" ry="20" text="End" />
+      </g>
+
+      <svg app-arrow x1="175" y1="100" x2="175" y2="150" direction="down"/>
+      <svg app-arrow x1="175" y1="200" x2="175" y2="250" direction="down"/>
+
+      <svg app-twodimension-arrow pointDirection="left" points="350 325,350 520,215 520" />
+
+    </svg>
+  </div>
+  <div class="col border div-pannel">
+   <app-codepannel >
+      {{ dataJson | json }}
+   </app-codepannel>
+  </div>
+</div>
+

@@ -1,0 +1,117 @@
+<div class="row">
+    <div class="col-md-1 border" style="padding: 3px;">
+          <app-action-bar
+              (new)="openSaveModal(saveModal)"
+              (clear)="onClear()"
+              (save)="openSaveModal(saveModal)"
+              (load)="openLoadModal(template)"
+              [isEditMode]="isEditMode"></app-action-bar>
+          <app-control-bar (select)="selectControlFromToolBar($event)"></app-control-bar>
+    </div>
+    <div class="col-md-8 border div-pannel graph" (keyup)="handleKeyboardEvent($event)">
+      <svg xmlns="http://www.w3.org/2000/svg" class="svg" (click)="createObject($event)">
+        <g *ngFor="let item of activityList">
+            <svg:g app-component-selector
+              [id]=item.id
+              [type]=item.type
+              [cordinate]=item.cordinate
+              [isSelected]=item.isSelected
+              [nextId]=item.nextId
+              [name]=item.data.Id
+              (select)="onSelectControl($event)"
+              (position)="onPositionChange(item.id, $event)"
+              (mouseover)="linkConnect.checkData() && link(item)"
+               />
+        </g>
+        <g *ngFor="let link of linkList">
+            <svg:g app-twodimension-arrow
+                [id]=link.id
+                [x1]=link.cordinate.x1
+                [y1]=link.cordinate.y1
+                [x2]=link.cordinate.x2
+                [y2]=link.cordinate.y2
+                [isSelected]=link.isSelected
+                [pointDirection]=link.direction
+                (select)="onSelectLink($event)" />
+        </g>
+      </svg>
+    </div>
+    <div class="col-md-3 border div-pannel">
+      <div class="row">
+         <app-property-bar style="width: 100%;" [data]="selectedControlData">
+         </app-property-bar>
+      </div>
+      <div class="row">
+         <app-codepannel style="width:100%; ">
+           {{ activityList | json }}
+         </app-codepannel>
+      </div>
+      <div class="row">
+          <app-link-bar style="width:100%;">
+            {{ linkList | json }}
+          </app-link-bar>
+      </div>
+    </div>
+  </div>
+
+
+
+  <ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Saved Wokflows</h4>
+              <button type="button" class="close pull-right"
+                      aria-label="Close" (click)="modalRef.hide()">
+                    <span aria-hidden="true">&times;</span>
+              </button>
+    </div>
+    <div class="modal-body" id="addNewModal" style="max-height: 400px; overflow: auto;">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let wf of existingWorkflows">
+            <td> {{ wf.id }} </td>
+            <td> {{ wf.name }} </td>
+            <td> {{ wf.addedOn }} </td>
+            <td>
+              <button class="btn btn-primary" (click)="load(wf.id)">load</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </ng-template>
+
+  <ng-template #saveModal>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Save</h4>
+            <button type="button" class="close pull-right"
+                    aria-label="Close" (click)="modalRef.hide()">
+                  <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body" id="addNewModal">
+      <div class="row">
+        <div class="col">
+            <form>
+                <div class="form-group">
+                  <label for="exampleFormControlInput1">Template Name</label>
+                  <input type="text" class="form-control form-control-sm" id="exampleFormControlInput1" #templateName
+                    placeholder="Enter template name" value="untitled_template" name="activityName">
+                </div>
+                <div>
+                  <button class="btn btn-primary" (click)="save(templateName.value)">Save</button>
+                  &nbsp;
+                  <button class="btn btn-danger" (click)="onClear()">Discard</button>
+                </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </ng-template>

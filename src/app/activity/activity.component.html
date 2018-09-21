@@ -1,0 +1,42 @@
+<svg:rect [attr.class]="!isSelected ? 'rect': 'rect rect-select'" [attr.x]="x" [attr.y]="y" [attr.height]="height" [attr.width]="width" rx="3" ry="3"
+        (click)="onSelect()"
+       (mousedown)="dragStart($event)"
+       (mousemove)="drag($event)"
+       (mouseleave)="dragEnd()"
+       (mouseup)="dragEnd()"
+       ></svg:rect>
+
+  <!-- <svg:foreignObject  [attr.x]="inputCordinate.x" [attr.y]="inputCordinate.y" [attr.width]="inputCordinate.width" [attr.height]="inputCordinate.height">
+      <xhtml:div>
+           <xhtml:select (change)="onChange($event.target.value)" class="form-control form-control-sm">
+              <xhtml:option *ngFor="let i of values"  [attr.value]="i.id" [attr.selected]="i.selected" > {{i.val}} </xhtml:option>
+          </xhtml:select>`
+          <xhtml:small>{{stepname}}</xhtml:small>
+      </xhtml:div>
+  </svg:foreignObject> -->
+  <svg:text [attr.x]="+x + +(width/2)" [attr.y]="+y + +(height/2)" class="control-text" alignment-baseline="middle">
+        {{ name }}
+    </svg:text>
+  <svg:polygon *ngIf="!nextId.length"
+               name="connector"
+               [attr.points]="connector_cordinates"
+               [attr.class]="isSelected ? 'connector visible' : 'connector'"
+              (click)="connectionStart()"
+  >
+  <title>
+      Click here to start connection from this control.
+      Mouse over on a different control you want to connect
+  </title>
+  </svg:polygon>
+
+  <!-- <svg:rect *ngIf="!fromId"
+            name="receiver"
+            [attr.x]="receiver_cordinates.x"
+            [attr.y]="receiver_cordinates.y"
+            height="10"
+            width="10"
+            [attr.class]="isSelected ? 'receiver visible' : 'receiver'">
+    <title>
+      Click here to make connection
+    </title>
+  </svg:rect> -->

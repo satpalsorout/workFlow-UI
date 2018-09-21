@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-xl-7 border graph" style="padding: 3px">
+    <svg xmlns="http://www.w3.org/2000/svg" class="svg" >
+
+      <g style="stroke:#999696;stroke-width:1;fill:#eaeaea">
+        <svg:g app-startend x="175" y="80" rx="40" ry="20" text="Start"/>
+        <svg:g app-activity [x]="100" [y]="150" [height]="50" [width]="150" name="activity1" stepname="Print HelloWorld"/>
+        <svg:g app-activity [x]="100" [y]="250" [height]="50" [width]="150" name="yesActivity" stepname="Print GoodbyeWorld"/>
+        <svg:g app-startend x="175" y="400" rx="40" ry="20" text="End" />
+      </g>
+
+      <svg app-arrow x1="175" y1="100" x2="175" y2="150" direction="down" />
+      <svg app-arrow x1="175" y1="200" x2="175" y2="250" direction="down" />
+      <svg app-arrow x1="175" y1="300" x2="175" y2="380" direction="down" />
+
+    </svg>
+  </div>
+  <div class="col border" style="padding: 3px; background-color:#28a745">
+   <app-codepannel >
+      {{ dataJson | json }}
+   </app-codepannel>
+  </div>
+</div>
+

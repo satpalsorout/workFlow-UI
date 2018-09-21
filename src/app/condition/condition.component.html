@@ -1,0 +1,35 @@
+<svg:polygon  [attr.class]="!isSelected ? 'polygon': 'polygon polygon-select'"
+              [attr.points]="points"
+              (click)="onSelect()"
+              (mousedown)="dragStart($event)"
+              (mousemove)="drag($event)"
+              (mouseleave)="dragEnd()"
+              (mouseup)="dragEnd()"
+></svg:polygon>
+<svg:text [attr.x]="x" [attr.y]="y" class="control-text"  alignment-baseline="middle">{{name}}</svg:text>
+<!-- <svg app-arrow x1="225" y1="300" x2="275" y2="300" direction="right"/>
+<svg app-arrow x1="175" y1="350" x2="175" y2="500" direction="down"/>
+
+
+
+<svg:foreignObject  [attr.x]="x" [attr.y]="y" [attr.width]="100" [attr.height]="10">
+      <xhtml:div>
+
+          <xhtml:h6>{{conditionName}}</xhtml:h6>
+      </xhtml:div>
+  </svg:foreignObject> -->
+  <svg:polygon *ngIf="nextId.length < 2"
+               name="ifYes"
+               [attr.points]="yes_connector_cordinates"
+               [attr.class]="isSelected ? 'connector visible' : 'connector'"
+               (click)="connectionStart('down', true)"
+                />
+  <svg:polygon *ngIf="nextId.length < 2"
+                name="ifNo"
+                [attr.points]="no_connector_cordinates"
+                [attr.class]="isSelected ? 'connector visible' : 'connector'"
+                (click)="connectionStart('right', false)"
+                 />
+
+<svg:text [attr.x]="text_cordinates.yes.x" [attr.y]="text_cordinates.yes.y" style="fill:#2b0c0c; font-size: 12px;" >Yes</svg:text>
+<svg:text [attr.x]="text_cordinates.no.x" [attr.y]="text_cordinates.no.y" style="fill:#2b0c0c; font-size: 12px;" >No</svg:text>
